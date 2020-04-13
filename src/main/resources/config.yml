@@ -1,0 +1,4 @@
+modules:
+  - "me.hope.lpt.module.VehiclePrevent"
+  - "me.hope.lpt.module.AchievementListener"
+  - "me.hope.lpt.module.WardrobeMender"
