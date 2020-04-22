@@ -37,8 +37,15 @@ public class LittlePluginThings extends JavaPlugin {
             module.onEnable();
         }
     }
+    private void onModulesDisable(){
+        for(BaseModule module : modules.values()){
+            module.onDisable();
+        }
+    }
     @Override
     public void onDisable() {
+        onModulesDisable();
+        this.getLogger().info("LittlePluginThings 模块关闭完毕!");
         INSTANCE = null;
     }
     private void registerListener(Listener ls){

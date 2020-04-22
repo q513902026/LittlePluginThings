@@ -2,6 +2,7 @@ name: LittlePluginThings
 main: me.hope.lpt.LittlePluginThings
 author: HopeAsd
 version: 0.0.2
-
+softdepend:
+  - DreamFish
 commands:
   lpt:

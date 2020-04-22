@@ -1,0 +1,5 @@
+config:
+  cooldown: 300L
+  # mode {PLAYER,GLOBAL}
+  mode: PLAYER
+cache: []

@@ -39,6 +39,7 @@ public abstract class BaseModule {
         info("正在加载配置文件...");
     }
     public void onEnable(){};
+    public void onDisable(){};
     public String getName(){
         return name;
     }
