@@ -1,38 +1,44 @@
 package me.hope.lpt.module;
 
-import com.google.common.collect.Lists;
+import java.util.List;
 import me.hope.lpt.LittlePluginThings;
+import me.hope.lpt.api.ConfigInstance;
+import me.hope.lpt.api.Plugin;
 import me.hope.lpt.core.BaseModule;
-import org.bukkit.entity.EntityType;
+import org.bukkit.configuration.Configuration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.VehicleEnterEvent;
 
-import java.util.List;
-
-
+@Plugin(name = "VehiclePrevent", version = "1.0")
 public class VehiclePrevent extends BaseModule implements Listener {
-    private static List<String> onlyEnterLists;
-
-    public VehiclePrevent(){
-        super(LittlePluginThings.GetDefaultModuleName(VehiclePrevent.class.toString()),"prevent-list");
-        this.saveDefaultConfig();
-        loadPreventList();
-    }
-
-    public void loadPreventList(){
-        onlyEnterLists = this.getConfig().getStringList("prevent");
-    }
-
-    @EventHandler
-    public void onEntityEnterVehicle(VehicleEnterEvent event){
-        if (!onlyEnterLists.contains(event.getEntered().getType().name())){
-            event.setCancelled(true);
-        }
-    }
-
-    @Override
-    public void reloadModule() {
-        loadPreventList();
-    }
+  private static List<String> onlyEnterLists;
+  
+  @ConfigInstance
+  public Configuration config;
+  
+  public VehiclePrevent() {
+    super(LittlePluginThings.GetDefaultModuleName(VehiclePrevent.class.toString()), "prevent-list");
+    saveDefaultConfig();
+  }
+  
+  public void onEnable() {
+    loadPreventList();
+    info("已成功载入限制目标...." + onlyEnterLists.size());
+    info("开启完成");
+  }
+  
+  public void loadPreventList() {
+    onlyEnterLists = getConfig().getStringList("prevent");
+  }
+  
+  @EventHandler
+  public void onEntityEnterVehicle(VehicleEnterEvent event) {
+    if (!onlyEnterLists.contains(event.getEntered().getType().name()))
+      event.setCancelled(true); 
+  }
+  
+  public void reloadModule() {
+    loadPreventList();
+  }
 }
